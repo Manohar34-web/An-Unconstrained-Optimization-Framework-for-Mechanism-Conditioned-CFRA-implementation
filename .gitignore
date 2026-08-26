@@ -1,0 +1,25 @@
+# R
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Generated analysis outputs
+data/output/*.csv
+data/output/*.rds
+data/output/*.RData
+
+# Raw/private input data
+data/input/*.csv
+data/input/*.txt
+data/input/*.xlsx
+
+# Keep directory placeholders
+!data/output/.gitkeep
+!data/input/README.md
