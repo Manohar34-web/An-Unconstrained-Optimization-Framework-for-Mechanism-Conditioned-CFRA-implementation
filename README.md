@@ -4,7 +4,7 @@ R implementation of the mechanism-based flood-frequency framework used in the ma
 
 > **A Mechanism-Based Framework for Compound Flood Risk Assessment Using Flood-Generating Mechanism Attribution and Multivariate Frequency Analysis**
 
-The workflow is deliberately ordered so that each stage produces the inputs required by the next:
+The workflow is ordered so that each stage produces the inputs required by the next:
 
 1. Flood-generating mechanism event-date extraction
 2. Circular seasonality statistics
@@ -17,8 +17,6 @@ The framework considers the following mechanisms:
 - `D2_AMX_MD_Pr`: multi-day precipitation (2-day precipitation)
 - `D3_CSMP`: compound soil-moisture–precipitation mechanism
 - `D4_CWSP`: compound wind-speed–precipitation mechanism
-
-For the soil-moisture mechanism, **antecedent soil moisture is explicitly retained**: the candidate soil-moisture extreme is selected only when high precipitation occurs within the prescribed forward window. This preserves the antecedent catchment-condition interpretation used in the methodology.
 
 ## Repository structure
 
@@ -75,8 +73,6 @@ Required inputs:
 - daily wind speed
 - annual maximum streamflow/flood series with corresponding dates
 
-See `data/input/README.md`.
-
 ## Run
 
 Edit `config/analysis_config.R`, then run:
@@ -87,47 +83,6 @@ source("R/00_run_all.R")
 
 or execute the four numbered scripts sequentially.
 
-## Important implementation choices
-
-### Marginal distributions
-
-Eleven L-moment candidate distributions are evaluated:
-
-- Gumbel
-- GEV
-- Log-Pearson III
-- Weibull
-- Exponential
-- Gamma
-- Generalized Logistic
-- Generalized Normal
-- Kappa
-- Log-normal III
-- Normal
-
-The distribution with the smallest Cramér–von Mises statistic is selected separately for each marginal.
-
-### Copula
-
-The implementation uses the Archimedean copula families required by the Kendall-distribution formulation:
-
-- Clayton
-- Gumbel
-- Frank
-
-The copula is selected by `VineCopula::BiCopSelect`.
-
-### Return-period scenarios
-
-The multivariate analysis calculates:
-
-- AND
-- OR
-- Kendall
-
-For D1/D2 the analysis is bivariate (streamflow + precipitation mechanism). For D3 it is trivariate (streamflow + precipitation + antecedent soil moisture), and for D4 it is trivariate (streamflow + precipitation + wind speed).
-
-For a trivariate case, inclusion–exclusion is used for the AND/OR probabilities.
 
 ## Reproducibility
 
